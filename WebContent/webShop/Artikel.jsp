@@ -133,6 +133,7 @@
 
 <% request.setAttribute("Cart", cart);%>
 
+<a href="../FrontController?action=addarticle">Artikel hinzufügen</a>
 <br>
 </body>
 </html>
