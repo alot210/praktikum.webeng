@@ -1,7 +1,5 @@
 package controller;
 
-import sun.misc.Request;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = {"/FrontController"})
+@WebServlet(urlPatterns = {"/"})
 public class FrontController extends HttpServlet {
 
     public FrontController() {
@@ -18,12 +16,11 @@ public class FrontController extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        doProcess(request,response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // TODO Auto-generated method stub
-        doGet(request, response);
-
+        doProcess(request,response);
     }
 
     public void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -32,7 +29,8 @@ public class FrontController extends HttpServlet {
         String action = request.getParameter("action");
         String redirect = "";
 
-        String AuthToken = "Webeng";
+        String authToken = "Webeng";
+        String param = request.getParameter("token");
 
 
         if(action == null) {
@@ -42,9 +40,10 @@ public class FrontController extends HttpServlet {
         switch (action) {
             case "addarticle":
                 System.out.print("addarticle");
-                String queryString = request.getParameter("AuthToken");
-                if(queryString!=null){
+                if(param!=null && param.equals(authToken)){
                     redirect = "/webShop/ArtikelService.jsp";
+                    dispatcher = request.getRequestDispatcher(redirect);
+                    dispatcher.forward(request,response);
                 }
 
                 break;
@@ -63,8 +62,8 @@ public class FrontController extends HttpServlet {
 
         }
 
-        dispatcher = request.getRequestDispatcher(redirect);
-        dispatcher.forward(request,response);
+//        dispatcher = request.getRequestDispatcher(redirect);
+//        dispatcher.forward(request,response);
 
     }
 
