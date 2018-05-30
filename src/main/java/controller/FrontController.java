@@ -27,7 +27,7 @@ public class FrontController extends HttpServlet {
 
         RequestDispatcher dispatcher;
         String action = request.getParameter("action");
-        String redirect = "";
+        String redirect;
 
         String authToken = "Webeng";
         String param = request.getParameter("token");
