@@ -7,6 +7,8 @@
 <%@ page import="businesslogic.ShoppingCartManager" %>
 <%@ page import="transferobject.Article" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.*" %>
+
 <%--
   Created by IntelliJ IDEA.
   User: otten
@@ -36,6 +38,7 @@
 <%--<%RequestDispatcher requestDispatcher = request.getRequestDispatcher("Warenkorb.jsp");
     requestDispatcher.include(request, response);
 %>--%>
+<jsp:useBean id="articleList" type="java.util.ArrayList" scope="request"></jsp:useBean>
 <h3>Warenkorb: </h3>
 <table>
     <tr>
@@ -107,9 +110,11 @@
         <th>Link</th>
     </tr>
     <%
-        ArticleManager manager = new ArticleManager();
-        ArrayList<Article> a = manager.getArticle();
-        for (Article article : a) { %>
+        Iterator i = articleList.iterator();
+        while (i.hasNext()) {
+            Article article = (Article)i.next();
+
+    %>
     <tr>
         <td><%=article.id%>
         </td>
@@ -131,9 +136,9 @@
     <button type="submit" name="Kaufen" value="Checkout">Kaufen</button>
 </form>
 
-<% request.setAttribute("Cart", cart);%>
+<%--<% request.setAttribute("Cart", cart);%>--%>
 
-<a href="../FrontController?action=addarticle">Artikel hinzufügen</a>
+<%--<a href="../FrontController?action=addarticle">Artikel hinzufügen</a>--%>
 <br>
 </body>
 </html>

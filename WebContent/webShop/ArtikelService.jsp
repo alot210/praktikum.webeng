@@ -15,19 +15,20 @@
 <br>
     <form action="addarticle">
         <label>Artikel-ID</label>
-            <input type="number" name="artikelid" min="1">
+            <input type="number" name="artikelid" min="1" required="required">
         <br>
         <br>
         <label>Artikelname</label>
-            <input type="text" name="artikelname">
+            <input type="text" name="artikelname" required="required">
         <br>
         <br>
         <label>Preis</label>
-            <input type="number" name="preis" min="1">
+            <input type="number" name="preis" min="1" required="required">
         <br>
         <br>
         <label>Anzahl</label>
-        <input type="number" name="anzahl" min="1">
+        <input type="number" name="anzahl" min="1" required="required">
+        <button name="send">Senden</button>
     </form>
 </body>
 </html>
