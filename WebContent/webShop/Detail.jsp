@@ -1,6 +1,4 @@
-<%@ page import="data.ArticleDAO" %>
-<%@ page import="data.H2FactoryDAO" %>
-<%@ page import="transferobject.Article" %><%--
+<%--
   Created by IntelliJ IDEA.
   User: otten
   Date: 25.05.2018
@@ -13,11 +11,8 @@
     <title>Details</title>
 </head>
 <body>
+<jsp:useBean id="article" class="transferobject.Article" type="transferobject.Article" scope="request"></jsp:useBean>
 
-<% String queryString = request.getParameter("id");
-    ArticleDAO articleDAO = H2FactoryDAO.getDaoArticle();
-    Article article = articleDAO.getArticle(Integer.parseInt(queryString));
-%>
 <h3>Artikeldetails</h3>
 <table>
     <tr>
@@ -35,14 +30,13 @@
 </table>
 <br>
 
-<form action="Artikel.jsp">
+<form action="/webengShop/FrontController">
+    <input type="hidden" name="action" value="articlelist">
     <button type="submit" name="Add" value=<%=article.getId()%>>
         in den Warenkorb
     </button>
 </form>
-
-
 <br>
-<a href="Artikel.jsp">zurück zur Artikelübersicht</a>
+<a href="/webengShop/FrontController?action=articlelist">zurück zur Artikelübersicht</a>
 </body>
 </html>

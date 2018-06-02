@@ -13,7 +13,9 @@
 <body>
 <h3>Artikel hinzufügen:</h3>
 <br>
-    <form action="addarticle">
+    <form action="/webengShop/FrontController">
+        <input type="hidden" name="action" value="addarticle">
+        <input type="hidden" name="token" value="Webeng">
         <label>Artikel-ID</label>
             <input type="number" name="artikelid" min="1" required="required">
         <br>
@@ -28,7 +30,7 @@
         <br>
         <label>Anzahl</label>
         <input type="number" name="anzahl" min="1" required="required">
-        <button name="send">Senden</button>
+        <button name="send" type="submit" value="addarticle">Senden</button>
     </form>
 </body>
 </html>

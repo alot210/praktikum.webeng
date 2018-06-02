@@ -1,12 +1,4 @@
-<%@ page import="businesslogic.ArticleManager" %>
 <%@ page import="transferobject.Article" %>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="data.ArticleDAO" %>
-<%@ page import="data.H2FactoryDAO" %>
-<%@ page import="transferobject.ShoppingCart" %>
-<%@ page import="businesslogic.ShoppingCartManager" %>
-<%@ page import="transferobject.Article" %>
-<%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.*" %>
 
 <%--
@@ -35,10 +27,9 @@
     </style>
 </head>
 <body>
-<%--<%RequestDispatcher requestDispatcher = request.getRequestDispatcher("Warenkorb.jsp");
-    requestDispatcher.include(request, response);
-%>--%>
-<jsp:useBean id="articleList" type="java.util.ArrayList" scope="request"></jsp:useBean>
+<jsp:useBean id="articleList" type="java.util.ArrayList" scope="session"></jsp:useBean>
+<jsp:useBean id="cart" type="transferobject.ShoppingCart" scope="session"></jsp:useBean>
+<jsp:useBean id="cartManager" type="businesslogic.ShoppingCartManager" scope="session"></jsp:useBean>
 <h3>Warenkorb: </h3>
 <table>
     <tr>
@@ -48,46 +39,22 @@
         <th>Anzahl</th>
     </tr>
     <%
-        ArticleDAO articleDAO = H2FactoryDAO.getDaoArticle();
-        ShoppingCartManager cartManager = new ShoppingCartManager();
-        ArrayList<Article> articles = new ArrayList<>();
-        ShoppingCart cart;
-        if (session.getAttribute("Cart") != null) {
-            cart = (ShoppingCart) session.getAttribute("Cart");
-        } else {
-            cart = cartManager.createShopCart(articles);
-        }
-        String param = request.getParameter("Add");
-        String param2 = request.getParameter("Delete");
-
-        if (param != null) {
-            int value = Integer.parseInt(param);
-            cartManager.addArticle(cart, value);
-            session.setAttribute("Cart", cart);
-        }
-
-        if (param2 != null) {
-            int value = Integer.parseInt(param2);
-            cartManager.deleteArticle(cart, value);
-            session.setAttribute("Cart", cart);
-        }
-
-        articles = cart.articleList;
         int index = 0;
-        for (Article article : articles) {
+        for (Article article2 : cart.articlel) {
     %>
 
     <tr>
-        <td><%=article.id%>
+        <td><%=article2.id%>
         </td>
-        <td><%=article.name%>
+        <td><%=article2.name%>
         </td>
-        <td><%=article.price%>
+        <td><%=article2.price%>
         </td>
-        <td><%=article.amount%>
+        <td><%=article2.amount%>
         </td>
         <td>
-            <form action="Artikel.jsp">
+            <form action="/webengShop/FrontController">
+                <input type="hidden" name="action" value="articlelist">
                 <button type="submit " name="Delete" value=<%=index%>>aus dem Warenkorb entfernen</button>
             </form>
         </td>
@@ -125,15 +92,16 @@
         <td><%=article.amount%>
         </td>
 
-        <td><a href="Detail.jsp?id=<%=article.getId()%>">Link zum Artikel</a></td>
+        <td><a href="/webengShop/FrontController?action=articledetails&id=<%=article.getId()%>">Link zum Artikel</a></td>
     </tr>
     <%}%>
 </table>
 <br>
 <br>
 
-<form action="Checkout.jsp">
-    <button type="submit" name="Kaufen" value="Checkout">Kaufen</button>
+<form action="/webengShop/FrontController">
+    <input type="hidden" name="action" value="checkout">
+    <button type="submit" name="Kaufen" value="checkout">Kaufen</button>
 </form>
 
 <%--<% request.setAttribute("Cart", cart);%>--%>

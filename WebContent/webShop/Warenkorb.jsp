@@ -50,7 +50,7 @@
             session.setAttribute("Cart", cart);
         }
 
-        articles = cart.articleList;
+        articles = cart.articlel;
         int index = 0;
         for (Article article : articles) {
     %>

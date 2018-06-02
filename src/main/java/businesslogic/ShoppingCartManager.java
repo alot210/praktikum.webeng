@@ -16,11 +16,11 @@ public class ShoppingCartManager {
 
         Article a = H2FactoryDAO.getDaoArticle().getArticle(id);
         a.setAmount(1);
-        cart.articleList.add(a);
+        cart.articlel.add(a);
     }
 
     public void deleteArticle(ShoppingCart cart, int index) throws SQLException {
-        cart.articleList.remove(index);
+        cart.articlel.remove(index);
     }
 
     public void checkout(ShoppingCart cart) throws SQLException {
@@ -28,19 +28,19 @@ public class ShoppingCartManager {
         System.out.println(cart);
         H2ArticleDAO daoArticle = H2FactoryDAO.getDaoArticle();
 
-        for(Article article: cart.articleList){
+        for(Article article: cart.articlel){
             int amount = daoArticle.getArticle(article.getId()).getAmount();
             int id = article.getId();
             daoArticle.reduceAmount(amount-1,id);
         }
-        cart.articleList.clear();
+        cart.articlel.clear();
         cart.sum = 0;
     }
 
     public int calculate(ShoppingCart cart) {
         int summe = 0;
 
-        for(Article article : cart.articleList) {
+        for(Article article : cart.articlel) {
             summe += article.getPrice();
         }
 

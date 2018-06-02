@@ -12,17 +12,8 @@
     <title>Checkout</title>
 </head>
 <body>
-<%
-    ShoppingCartManager cartManager = new ShoppingCartManager();
-
-    String s = request.getParameter("Kaufen");
-
-    ShoppingCart cart = (ShoppingCart) session.getAttribute("Cart");
-    if (s!=null) {
-        cartManager.checkout(cart);
-    }
-%>
+<jsp:useBean id="shopCart" type="transferobject.ShoppingCart" scope="session"></jsp:useBean>
 <h2>Danke für Ihren Einkauf!</h2>
-<a href="Artikel.jsp">zurück zur Artikelübersicht</a>
+<a href="/webengShop/FrontController?action=articlelist">zurück zur Artikelübersicht</a>
 </body>
 </html>
